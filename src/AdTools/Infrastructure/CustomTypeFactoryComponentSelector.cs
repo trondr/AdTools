@@ -7,7 +7,7 @@ namespace AdTools.Infrastructure
     {
         protected override string GetComponentName(MethodInfo method, object[] arguments)
         {
-            if (method.Name == "Create" && arguments.Length == 1 && arguments[0] is string)
+            if (method.Name == "ReportAllGpos" && arguments.Length == 1 && arguments[0] is string)
             {
                 return (string)arguments[0];
             }

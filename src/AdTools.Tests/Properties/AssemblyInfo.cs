@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("AdTools.Tests")]
 [assembly: AssemblyCopyright("Copyright © github.com.trondr 2015")]
 [assembly: CLSCompliant(false)]
-[assembly: AssemblyInformationalVersion("1.0.15092.0.")]
+[assembly: AssemblyInformationalVersion("1.0.15092.0.369ccee")]
 [assembly: AssemblyVersion("1.0.15092.0")]
 [assembly: AssemblyFileVersion("1.0.15092.0")]
 

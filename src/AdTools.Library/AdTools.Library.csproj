@@ -67,8 +67,8 @@
     <Compile Include="Infrastructure\CommandProvider.cs" />
     <Compile Include="Infrastructure\ILoggingConfiguration.cs" />
     <Compile Include="Infrastructure\LoggingConfiguration.cs" />
-    <Compile Include="Commands\Example\IExampleCommandProvider.cs" />
-    <Compile Include="Commands\Example\ExampleCommandProvider.cs" />
+    <Compile Include="Commands\ReportAllGpos\IReportAllGposCommandProvider.cs" />
+    <Compile Include="Commands\ReportAllGpos\ReportAllGposCommandProvider.cs" />
     <Compile Include="Infrastructure\ApplicationInfoHelper.cs" />
     <Compile Include="Infrastructure\CommandDefinition.cs" />
     <Compile Include="Infrastructure\SingletonAttribute.cs" />
@@ -76,6 +76,8 @@
     <Compile Include="Infrastructure\ToDoPriority.cs" />
     <Compile Include="Common\UI\CommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\GpmcWindowsFeature.cs" />
+    <Compile Include="Services\IGpmcWindowsFeature.cs" />
     <Compile Include="ViewModels\DesignTimeMainViewModel.cs" />
     <Compile Include="ViewModels\IMainViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -90,7 +92,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\MainView.xaml">

@@ -18,7 +18,7 @@ namespace AdTools
         {
             //Example: Adding a command to windows explorer contect menu
             //this.Context.LogMessage("Adding AdTools to File Explorer context menu...");
-            //new WindowsExplorerContextMenuInstaller().Install("AdTools", "Create Something...", Assembly.GetExecutingAssembly().Location, "CreateSomething /exampleParameter=\"%1\"");
+            //new WindowsExplorerContextMenuInstaller().Install("AdTools", "ReportAllGpos Something...", Assembly.GetExecutingAssembly().Location, "CreateSomething /exampleParameter=\"%1\"");
             //this.Context.LogMessage("Finnished adding AdTools to File Explorer context menu.");
             
             base.Install(stateSaver);
