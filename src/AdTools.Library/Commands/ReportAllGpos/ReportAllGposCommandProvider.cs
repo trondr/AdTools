@@ -44,6 +44,7 @@ namespace AdTools.Library.Commands.ReportAllGpos
                 var gpoReportFile = Path.Combine(reportFolder,gpoGuid.ToString() + ".xml");
                 using (var sw = new StreamWriter(gpoReportFile,false,Encoding.UTF8))
                 {
+                    ToDo.Implement(ToDoPriority.Critical, "trondr", "Remove 'ReadTime' xml element to avoid difference in the xml file on consequtive runs of the report.");
                     sw.Write(gpoReport);
                 }
             }            
