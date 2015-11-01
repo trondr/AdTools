@@ -1,8 +1,11 @@
 using System;
+using System.IO;
+using System.Text;
 using AdTools.Library.Commands.Example;
 using AdTools.Library.Infrastructure;
 using AdTools.Library.Services;
 using Common.Logging;
+using Microsoft.GroupPolicy;
 
 namespace AdTools.Library.Commands.ReportAllGpos
 {
@@ -18,7 +21,7 @@ namespace AdTools.Library.Commands.ReportAllGpos
         }
 
 
-        public int ReportAllGpos(string targetRootFolder)
+        public int ReportAllGpos(string reportFolder)
         {
             var returnValue = 0;
             if (!_gpmcWindowsFeature.IsInstalled())
@@ -26,9 +29,24 @@ namespace AdTools.Library.Commands.ReportAllGpos
                 _logger.ErrorFormat("Windows feature '{0}' do not seem to be installed on this machine: ", "GPMC");
                 return 1;
             }
-            _logger.Info("Report all GPOs...");
-            ToDo.Implement(ToDoPriority.Critical, "eta410", "Implement report all GPOs command.");
-            throw new NotImplementedException();
+            if(!Directory.Exists(reportFolder))
+            {
+                _logger.ErrorFormat("Report folder '{0}' does not exists", reportFolder);
+                return 1;
+            }
+            _logger.Info("Report all GPOs...");            
+            var gpDomain = new GPDomain();
+            var gpoCollection = gpDomain.GetAllGpos();
+            foreach (var gpo in gpoCollection)
+            {
+                var gpoGuid = gpo.Id;
+                var gpoReport = gpo.GenerateReport(ReportType.Xml);
+                var gpoReportFile = Path.Combine(reportFolder,gpoGuid.ToString() + ".xml");
+                using (var sw = new StreamWriter(gpoReportFile,false,Encoding.UTF8))
+                {
+                    sw.Write(gpoReport);
+                }
+            }            
             return returnValue;
         }
     }

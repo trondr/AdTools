@@ -2,6 +2,6 @@
 {
     public interface IReportAllGposCommandProvider
     {
-        int ReportAllGpos(string targetRootFolder);
+        int ReportAllGpos(string reportFolder);
     }
 }

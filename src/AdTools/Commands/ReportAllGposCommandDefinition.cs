@@ -15,11 +15,11 @@ namespace AdTools.Commands
 
         [Command(Description = "Report all GPOs to xml files, one GPO in each xml file.")]
         public int ReportAllGpos(
-            [RequiredCommandParameter(Description = "Target folder where the reports should be saved.", AlternativeName = "tf", ExampleValue = @"c:\temp")]
-            string targetFolder
+            [RequiredCommandParameter(Description = "Report folder where the reports will be saved.", AlternativeName = "tf", ExampleValue = @"c:\temp")]
+            string reportFolder
             )
         {            
-            return _reportAllGposCommandProvider.ReportAllGpos(targetFolder);
+            return _reportAllGposCommandProvider.ReportAllGpos(reportFolder);
         }
     }
 }
