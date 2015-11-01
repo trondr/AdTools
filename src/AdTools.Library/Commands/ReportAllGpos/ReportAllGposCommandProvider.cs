@@ -24,14 +24,11 @@ namespace AdTools.Library.Commands.ReportAllGpos
             if (!_gpmcWindowsFeature.IsInstalled())
             {
                 _logger.ErrorFormat("Windows feature '{0}' do not seem to be installed on this machine: ", "GPMC");
-                returnValue = 1;
+                return 1;
             }
-            else
-            {
-                _logger.Info("Report all GPOs...");
-                ToDo.Implement(ToDoPriority.Critical, "eta410", "Implement report all GPOs command.");
-                throw new NotImplementedException();
-            }
+            _logger.Info("Report all GPOs...");
+            ToDo.Implement(ToDoPriority.Critical, "eta410", "Implement report all GPOs command.");
+            throw new NotImplementedException();
             return returnValue;
         }
     }
