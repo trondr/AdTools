@@ -1,7 +1,7 @@
-﻿namespace AdTools.Library.Commands.Example
+﻿namespace AdTools.Library.Commands.ReportAllGpos
 {
     public interface IReportAllGposCommandProvider
     {
-        int ReportAllGpos(string reportFolder);
+        int ReportAllGpos(string reportFolder, bool removeReadTimestamp);
     }
 }

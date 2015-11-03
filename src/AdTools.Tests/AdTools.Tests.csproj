@@ -69,7 +69,7 @@
     <Compile Include="IntegrationTests\ExampleIntegrationTests.cs" />
     <Compile Include="IntegrationTests\StandardUser\ExampleStandardUserIntegrationTests.cs" />
     <Compile Include="IntegrationTests\StandardUser\StandardUserImpersonationTests.cs" />
-    <Compile Include="UnitTests\UnitTestsTemplate.cs" />
+    <Compile Include="UnitTests\XmlHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
