@@ -15,7 +15,7 @@ namespace AdTools.Commands
 
         [Command(Description = "Report all GPOs to xml files. One xml file for each GPO.")]
         public int ReportAllGpos(
-            [RequiredCommandParameter(Description = "Report folder where the reports will be saved.", AlternativeName = "rf", ExampleValue = @"c:\temp")]
+            [RequiredCommandParameter(Description = "Report folder where the reports will be saved.", AlternativeName = "rf", ExampleValue = @"c:\temp\gporeports")]
             string reportFolder,
             [OptionalCommandParameter(Description = "Remove read time stamp from xml file before saving to report folder. This will prevent report files from becoming different each time report is written.", AlternativeName = "rr", DefaultValue = true, ExampleValue = false)]
             bool removeReadTimestamp

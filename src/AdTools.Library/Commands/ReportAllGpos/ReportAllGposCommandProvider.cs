@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -28,7 +29,7 @@ namespace AdTools.Library.Commands.ReportAllGpos
             var returnValue = 0;
             if (!_gpmcWindowsFeature.IsInstalled())
             {
-                _logger.ErrorFormat("Windows feature '{0}' do not seem to be installed on this machine: ", "GPMC");
+                _logger.ErrorFormat("Windows feature 'GPMC' do not seem to be installed on this machine: {0}. This command can only be executed on a Windows Server Operating System with GPMC feature installed.", Environment.MachineName);
                 return 1;
             }
             if (!Directory.Exists(reportFolder))
@@ -36,6 +37,13 @@ namespace AdTools.Library.Commands.ReportAllGpos
                 _logger.ErrorFormat("Report folder '{0}' does not exists", reportFolder);
                 return 1;
             }
+            _logger.Info("Clean report folder for existing reports");
+            var existingReportFiles = Directory.GetFiles(reportFolder, "*.xml",SearchOption.TopDirectoryOnly);
+            foreach (var existingReportFile in existingReportFiles)
+            {
+                File.Delete(existingReportFile);
+            }
+
             _logger.Info("Report all GPOs...");
             var gpDomain = new GPDomain();
             var gpoCollection = gpDomain.GetAllGpos();
@@ -43,23 +51,29 @@ namespace AdTools.Library.Commands.ReportAllGpos
             {
                 var gpoGuid = gpo.Id;
                 var gpoReport = gpo.GenerateReport(ReportType.Xml);
-                var gpoReportFile = Path.Combine(reportFolder, gpoGuid.ToString() + ".xml");
+                var gpoReportFile = Path.Combine(reportFolder, gpoGuid + ".xml");
                 using (var sw = new StreamWriter(gpoReportFile, false, Encoding.UTF8))
                 {
                     if (removeReadTimestamp)
-                    {                        
-                        var nameSpaces = new Dictionary<string, string>
-                        {
-                            {"http://www.w3.org/2001/XMLSchema-instance", "xsi"},
-                            {"http://www.w3.org/2001/XMLSchema", "xsd"},
-                            {"http://www.microsoft.com/GroupPolicy/Settings", "empty"}
-                        };
-                        gpoReport = _xmlHelper.RemoveNode(gpoReport, "/empty:GPO/empty:ReadTime", nameSpaces);
+                    {
+                        gpoReport = RemoveReadTimeStamp(gpoReport);
                     }
                     sw.Write(gpoReport);
                 }
             }
             return returnValue;
+        }
+
+        private string RemoveReadTimeStamp(string gpoReport)
+        {
+            var nameSpaces = new Dictionary<string, string>
+            {
+                {"http://www.w3.org/2001/XMLSchema-instance", "xsi"},
+                {"http://www.w3.org/2001/XMLSchema", "xsd"},
+                {"http://www.microsoft.com/GroupPolicy/Settings", "empty"}
+            };
+            gpoReport = _xmlHelper.RemoveNode(gpoReport, "/empty:GPO/empty:ReadTime", nameSpaces);
+            return gpoReport;
         }
     }
 }
