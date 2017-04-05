@@ -17,18 +17,18 @@ namespace AdTools.Library.Commands.InPlaceGitBackup
 
         public GitBackupStatus InPlaceGitBackup(string repositoryFolder)
         {            
-            var isValidGitRepository = LibGit2Sharp.Repository.IsValid(repositoryFolder);
+            var isValidGitRepository = Repository.IsValid(repositoryFolder);
             var createdRepository = false;
             if (!isValidGitRepository)
             {
                 _logger.InfoFormat("Initializing git repository in folder '{0}'...", repositoryFolder);
-                repositoryFolder = LibGit2Sharp.Repository.Init(repositoryFolder, false);
+                repositoryFolder = Repository.Init(repositoryFolder, false);
                 createdRepository = true;
             }
             var numberOfFilesAdded = 0;
             var numberOfFilesChanged = 0;
             var numberOfFilesRemoved = 0;
-            using (var repository = new LibGit2Sharp.Repository(repositoryFolder))
+            using (var repository = new Repository(repositoryFolder))
             {
                 var options = new StatusOptions();
                 var status = repository.RetrieveStatus(options);
@@ -61,8 +61,9 @@ namespace AdTools.Library.Commands.InPlaceGitBackup
                         repository.Stage(removedFile.FilePath, stageOptions);
                         numberOfFilesRemoved++;
                     }
-                    var author = new Signature(Environment.UserName, "someemail@tesdt.com", System.DateTimeOffset.Now);
-                    var committer = new Signature(Environment.UserName, "someemail@tesdt.com", System.DateTimeOffset.Now);
+                    var email = GetNoReplyEmail(); 
+                    var author = new Signature(Environment.UserName, email, DateTimeOffset.Now);
+                    var committer = new Signature(Environment.UserName, email, DateTimeOffset.Now);
                     var commitOptions = new CommitOptions();
                     _logger.Info("Commiting...");
                     repository.Commit(DateTime.Now.ToString(CultureInfo.InvariantCulture), author, committer, commitOptions);
@@ -70,6 +71,16 @@ namespace AdTools.Library.Commands.InPlaceGitBackup
             }
             var gitBackupStatus = new GitBackupStatus(createdRepository, numberOfFilesAdded, numberOfFilesChanged, numberOfFilesRemoved);
             return gitBackupStatus;
+        }
+
+        private string GetNoReplyEmail()
+        {
+            var userDnsDomain = Environment.GetEnvironmentVariable("USERDNSDOMAIN");
+            var userDomain = Environment.UserDomainName;
+            var domain = userDnsDomain?.ToLower() ?? userDomain?.ToLower();
+            var userName = Environment.UserName;
+            var email = $"{userName}-no-reply@{domain}";
+            return email;
         }
     }
 }
