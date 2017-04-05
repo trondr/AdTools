@@ -2,6 +2,6 @@
 {
     public interface IReportAllGposCommandProvider
     {
-        int ReportAllGpos(string reportFolder, bool removeReadTimestamp);
+        int ReportAllGpos(string reportFolder, bool removeReadTimestamp, string domainController);
     }
 }

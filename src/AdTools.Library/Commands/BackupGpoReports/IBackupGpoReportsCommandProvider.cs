@@ -2,6 +2,6 @@
 {
     public interface IBackupGpoReportsCommandProvider
     {
-        int BackupGpoReports(string reportFolder);
+        int BackupGpoReports(string reportFolder, string domainController);
     }
 }

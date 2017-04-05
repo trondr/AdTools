@@ -18,9 +18,9 @@ namespace AdTools.Library.Commands.BackupGpoReports
             _logger = logger;
         }
 
-        public int BackupGpoReports(string reportFolder)
+        public int BackupGpoReports(string reportFolder, string domainController)
         {
-            var exitCode = _reportAllGposCommandProvider.ReportAllGpos(reportFolder, RemoveReadTimestamp.True);
+            var exitCode = _reportAllGposCommandProvider.ReportAllGpos(reportFolder, RemoveReadTimestamp.True, domainController);
             if(exitCode != 0)
                 return exitCode;
 

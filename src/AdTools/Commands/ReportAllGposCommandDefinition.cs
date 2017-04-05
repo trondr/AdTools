@@ -18,10 +18,12 @@ namespace AdTools.Commands
             [RequiredCommandParameter(Description = "Report folder where the reports will be saved.", AlternativeName = "rf", ExampleValue = @"c:\temp\gporeports")]
             string reportFolder,
             [OptionalCommandParameter(Description = "Remove read time stamp from xml file before saving to report folder. This will prevent report files from becoming different each time report is written.", AlternativeName = "rr", DefaultValue = true, ExampleValue = false)]
-            bool removeReadTimestamp
+            bool removeReadTimestamp,
+            [OptionalCommandParameter(Description = "Domain controller", AlternativeName = "dc", ExampleValue = @"somedc.test.local", DefaultValue = null)]
+            string domainController
             )
         {            
-            return _reportAllGposCommandProvider.ReportAllGpos(reportFolder, removeReadTimestamp);
+            return _reportAllGposCommandProvider.ReportAllGpos(reportFolder, removeReadTimestamp, domainController);
         }
     }
 }

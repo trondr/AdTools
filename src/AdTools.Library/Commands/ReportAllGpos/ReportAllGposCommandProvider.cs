@@ -24,7 +24,7 @@ namespace AdTools.Library.Commands.ReportAllGpos
         }
 
 
-        public int ReportAllGpos(string reportFolder, bool removeReadTimestamp)
+        public int ReportAllGpos(string reportFolder, bool removeReadTimestamp, string domainController)
         {
             var returnValue = 0;
             if (!_gpmcWindowsFeature.IsInstalled())
@@ -45,7 +45,7 @@ namespace AdTools.Library.Commands.ReportAllGpos
             }
 
             _logger.Info("Report all GPOs...");
-            var gpDomain = new GPDomain();
+            var gpDomain = GetGroupPolicyDomain(domainController);
             var gpoCollection = gpDomain.GetAllGpos();
             foreach (var gpo in gpoCollection)
             {
@@ -62,6 +62,22 @@ namespace AdTools.Library.Commands.ReportAllGpos
                 }
             }
             return returnValue;
+        }
+
+        private GPDomain GetGroupPolicyDomain(string domainController)
+        {
+            GPDomain gpDomain;
+            if (string.IsNullOrWhiteSpace(domainController))
+            {
+                gpDomain = new GPDomain();
+            }
+            else
+            {
+                var domainName = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
+                _logger.Info($"Getting GP domain object from domain '{domainName}' and domain contoller '{domainController}'");
+                gpDomain = new GPDomain(domainName, domainController);
+            }
+            return gpDomain;
         }
 
         private string RemoveReadTimeStamp(string gpoReport)
