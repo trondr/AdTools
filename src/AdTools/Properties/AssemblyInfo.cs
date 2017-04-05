@@ -17,10 +17,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("AdTools provides various Active Directory management commands")]
 [assembly: AssemblyCompany("github.com.trondr")]
 [assembly: AssemblyProduct("AdTools")]
-[assembly: AssemblyCopyright("Copyright © github.com.trondr 2016")]
+[assembly: AssemblyCopyright("Copyright © github.com.trondr 2017")]
 [assembly: CLSCompliant(false)]
-[assembly: AssemblyInformationalVersion("1.0.16343.3.fca232c")]
-[assembly: AssemblyVersion("1.0.16343.3")]
-[assembly: AssemblyFileVersion("1.0.16343.3")]
+[assembly: AssemblyInformationalVersion("1.0.17095.4.399c16b")]
+[assembly: AssemblyVersion("1.0.17095.4")]
+[assembly: AssemblyFileVersion("1.0.17095.4")]
 
 
